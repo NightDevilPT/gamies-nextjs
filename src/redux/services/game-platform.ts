@@ -7,10 +7,9 @@ export const fetchGamePlatform = createAsyncThunk(
   "genres/fetchGamePlatform",
   async () => {
     try {
-    //   const response = await getPlatforms();
-	  // console.log(response,'platforms')
-    //   return response;
-      return dummyPlatform;
+      const response = await getPlatforms();
+      return response;
+      // return dummyPlatform;
     } catch (error) {
       throw error; // Throw any errors for handling in the rejected case
     }
