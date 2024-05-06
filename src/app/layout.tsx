@@ -5,6 +5,7 @@ import ReduxProvide from "@/providers/ReduxProvider";
 import { NextUiProviders } from "../providers/NextUiProvider";
 import NavbarFrame from "@/components/ui/Navbar/Navbar";
 import ApiHitProvide from "@/providers/ApiHitLayout";
+import SidebarFrame from "@/components/ui/sidebar";
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -18,12 +19,19 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" className="dark">
-			<body>
+			<body className={`w-full h-[100vh]`}>
 				<ReduxProvide>
 					<NextUiProviders>
 						<ApiHitProvide>
 							<NavbarFrame />
-							{children}
+							<div
+								className={`w-full h-[calc(100%-4rem)] container flex justify-start items-start gap-5 mt-5`}
+							>
+								<div className={`sticky top-20 h-full max-lg:hidden`}>
+									<SidebarFrame />
+								</div>
+								{children}
+							</div>
 						</ApiHitProvide>
 					</NextUiProviders>
 				</ReduxProvide>

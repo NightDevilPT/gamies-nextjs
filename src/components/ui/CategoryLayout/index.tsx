@@ -1,28 +1,35 @@
 "use client";
 
-import { useAppSelector } from "@/redux/hook";
-import { RootState } from "@/redux/store";
-import { categoryLayoutProps } from "@/types/category-card";
-import { Platform, PlatformResult } from "@/types/platform";
 import React from "react";
+
+import { RootState } from "@/redux/store";
+import { useAppSelector } from "@/redux/hook";
 import CategoryCards from "./CategoryCard";
-import { Genre } from "@/types/type";
+import { Genre, StatusResponse } from "@/types/type";
+import { Platform, PlatformResult } from "@/types/platform";
+import { categoryLayoutProps } from "@/types/category-card";
+import LoadingBoundry from "../LoadingBoudry";
+import ErrorBoundry from "../ErorBoundry";
+import GameCards from "./GameCards";
+import { Game } from "@/types/games";
 
 const CategoryLayout = ({ title }: categoryLayoutProps) => {
 	return (
-		<div className={`w-full h-auto space-y-3`}>
+		<div className={`w-full h-auto space-y-3 my-5`}>
 			<h1
-				className={`w-full h-auto text-3xl font-[600] text-success-500 capitalize`}
+				className={`w-full h-auto text-3xl font-[600] text-forground-800 capitalize`}
 			>
 				{title}
 			</h1>
 			<div
-				className={`w-full h-auto grid grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-[450px]:grid-cols-1 gap-5`}
+				className={`w-full h-auto relative grid grid-cols-3 max-xl:grid-cols-2 max-lg:grid-cols-2 max-[450px]:grid-cols-1 gap-5`}
 			>
 				{title.toLowerCase() === "platform" ? (
 					<PlatformCards />
-				) : (
+				) : title.toLowerCase() === "genres" ? (
 					<GenresCards />
+				) : (
+					<GamesCards />
 				)}
 			</div>
 		</div>
@@ -30,7 +37,15 @@ const CategoryLayout = ({ title }: categoryLayoutProps) => {
 };
 
 const PlatformCards = () => {
-	const { platform } = useAppSelector((state: RootState) => state.platforms);
+	const { platform, platformError, platformStatus } = useAppSelector(
+		(state: RootState) => state.platforms
+	);
+	if (platformStatus === StatusResponse.PENDING) {
+		return <LoadingBoundry />;
+	} else if (platformStatus === StatusResponse.REJECTED && platformError) {
+		return <ErrorBoundry error={platformError} />;
+	}
+
 	return platform?.results?.map((platformResult: PlatformResult) => {
 		return platformResult.platforms.map(
 			({ id, name, slug, games_count, image_background }: Platform) => {
@@ -50,7 +65,14 @@ const PlatformCards = () => {
 };
 
 const GenresCards = () => {
-	const { genres } = useAppSelector((state: RootState) => state.genres);
+	const { genres, genresError, genresStatus } = useAppSelector(
+		(state: RootState) => state.genres
+	);
+	if (genresStatus !== StatusResponse.FULLFILLED) {
+		return <LoadingBoundry />;
+	} else if (genresError) {
+		return <ErrorBoundry error={genresError} />;
+	}
 	return genres?.results?.map(
 		({ id, name, slug, games_count, image_background }: Genre) => {
 			return (
@@ -65,6 +87,30 @@ const GenresCards = () => {
 			);
 		}
 	);
+};
+
+const GamesCards = () => {
+	const { games, gamesError, gamesStatus } = useAppSelector(
+		(state: RootState) => state.games
+	);
+	if (gamesStatus === StatusResponse.PENDING) {
+		return <LoadingBoundry />;
+	} else if (gamesStatus === StatusResponse.REJECTED && gamesError) {
+		return <ErrorBoundry error={gamesError} />;
+	}
+
+	return games?.results.map((game: Game) => (
+		<GameCards
+			key={game.id+'-'+game.slug}
+			released={game.released}
+			id={game.id}
+			name={game.name}
+			slug={game.slug}
+			image={game.background_image}
+			genres={game.genres}
+			parent_platforms={game.parent_platforms}
+		/>
+	));
 };
 
 export default CategoryLayout;

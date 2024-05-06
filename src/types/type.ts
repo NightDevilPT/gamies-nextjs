@@ -38,3 +38,15 @@ type Params = {
 export interface ParamsObject{
 	params: Params;
 };
+
+export interface SidebarIprops {
+	id: string;
+	name: string;
+	slug: string;
+	image: string;
+}
+
+export interface SidebarShowProps{
+	showGenres:boolean;
+	showPlatforms:boolean;
+}

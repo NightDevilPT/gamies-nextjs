@@ -6,40 +6,41 @@ import {
 	NavbarContent,
 	NavbarMenuToggle,
 } from "@nextui-org/navbar";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-
-import NavBarLogo from "./NavBarLogo";
 import NavBarContent from "./NavBarContent";
-import { getGenres } from "@/services/Request";
 import NavBarMenu from "./NavBarMenu";
 import LogoFrame from "./NavBarLogo";
-
+import SocialNavBar from "./SocialNavbar";
 
 const NavbarFrame = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
 	return (
 		<Navbar
-			className={`w-full container`}
+			className={`w-full`}
 			onMenuOpenChange={setIsMenuOpen}
-			maxWidth="2xl"
+			maxWidth={`full`}
 			isBordered
 			isBlurred
-			shouldHideOnScroll
 			position="sticky"
 		>
-			<NavbarBrand>
-				<LogoFrame />
-			</NavbarBrand>
-			<NavBarContent />
-			<NavbarContent justify="end">
-				<NavbarMenuToggle
-					aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-					className="hidden max-md:flex"
-				/>
-				<NavBarMenu />
-			</NavbarContent>
+			<div className={`container flex justify-center items-center`}>
+				<NavbarBrand>
+					<LogoFrame />
+				</NavbarBrand>
+				<NavBarContent />
+				<NavbarContent justify="end">
+					<div className={`max-sm:hidden`}>
+						<SocialNavBar />
+					</div>
+					<NavbarMenuToggle
+						aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+						className="hidden max-md:flex h-6"
+					/>
+					<NavBarMenu />
+				</NavbarContent>
+			</div>
 		</Navbar>
 	);
 };

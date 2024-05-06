@@ -1,6 +1,8 @@
-import { NavbarMenu, NavbarMenuItem } from "@nextui-org/navbar";
-import { Link } from "@nextui-org/react";
 import React from "react";
+import { Divider, Link } from "@nextui-org/react";
+import { NavbarMenu, NavbarMenuItem } from "@nextui-org/navbar";
+
+import SocialNavBar from "../SocialNavbar";
 
 const menuItems = ["Genres", "Platforms", "Games", "Browse"];
 
@@ -18,6 +20,8 @@ const NavBarMenu = () => {
 					</Link>
 				</NavbarMenuItem>
 			))}
+			<Divider className="my-3" />
+			<SocialNavBar />
 		</NavbarMenu>
 	);
 };

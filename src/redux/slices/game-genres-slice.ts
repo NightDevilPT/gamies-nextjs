@@ -1,4 +1,4 @@
-import { Action, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { fetchGameGenres } from "../services/game-genres";
 import { GenresApiResponse, StatusResponse } from "@/types/type";
 

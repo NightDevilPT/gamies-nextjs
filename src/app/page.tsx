@@ -1,9 +1,9 @@
-import { Button } from "@nextui-org/button";
-import Image from "next/image";
+import BannerFrame from "@/components/ui/BannerFrame";
 
-export default function Home() {
-  return (
-    <div>
-    </div>
-  );
+export default function index() {
+	return (
+		<div className={`w-full h-full`}>
+			<BannerFrame />
+		</div>
+	);
 }
