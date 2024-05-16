@@ -16,9 +16,20 @@ export const gamesSlice = createSlice({
 			state.gamesStatus = StatusResponse.PENDING;
 			state.gamesError = null; // Reset error state when pending
 		});
-		builder.addCase(fetchGame.fulfilled, (state, action:any) => {
+		builder.addCase(fetchGame.fulfilled, (state, action: any) => {
 			state.gamesStatus = StatusResponse.FULLFILLED;
-			state.games = action.payload;
+			if (state.games.results) {
+				state.games = {
+					...action.payload,
+					results: [
+						...state.games.results,
+						...action.payload.results,
+					],
+				};
+			} else {
+				state.games = action.payload;
+			}
+
 			state.gamesError = null;
 		});
 		builder.addCase(fetchGame.rejected, (state, action) => {

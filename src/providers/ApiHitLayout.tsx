@@ -31,8 +31,7 @@ const ApiHitProvide = ({ children }: ChildProps) => {
 
     if (
         genresStatus === StatusResponse.PENDING ||
-        platformStatus === StatusResponse.PENDING ||
-        gamesStatus === StatusResponse.PENDING
+        platformStatus === StatusResponse.PENDING
     ) {
         return (
             <div className={`fixed w-full h-full left-0 top-0 bg-background flex justify-center items-center`}>

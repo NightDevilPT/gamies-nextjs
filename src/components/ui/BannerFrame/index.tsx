@@ -34,10 +34,12 @@ const BannerFrame = () => {
 			);
 			setImage(genres.results[randomIndex].image_background);
 		} else {
-			const randomIndex = Math.floor(
-				Math.random() * games.results.length
-			);
-			setImage(games.results[randomIndex].background_image);
+			if (games.results) {
+				const randomIndex = Math.floor(
+					Math.random() * games.results.length
+				);
+				setImage(games.results[randomIndex].background_image);
+			}
 		}
 	}, [params, platform, genres, games]);
 

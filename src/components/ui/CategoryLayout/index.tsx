@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
 import { RootState } from "@/redux/store";
-import { useAppSelector } from "@/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import CategoryCards from "./CategoryCard";
 import { Genre, StatusResponse } from "@/types/type";
 import { Platform, PlatformResult } from "@/types/platform";
@@ -12,6 +12,8 @@ import LoadingBoundry from "../LoadingBoudry";
 import ErrorBoundry from "../ErorBoundry";
 import GameCards from "./GameCards";
 import { Game } from "@/types/games";
+import { Button } from "@nextui-org/button";
+import { fetchGame } from "@/redux/services/games";
 
 const CategoryLayout = ({ title }: categoryLayoutProps) => {
 	return (
@@ -93,24 +95,53 @@ const GamesCards = () => {
 	const { games, gamesError, gamesStatus } = useAppSelector(
 		(state: RootState) => state.games
 	);
-	if (gamesStatus === StatusResponse.PENDING) {
-		return <LoadingBoundry />;
-	} else if (gamesStatus === StatusResponse.REJECTED && gamesError) {
-		return <ErrorBoundry error={gamesError} />;
+	const dispatch = useAppDispatch();
+
+	function getPageNumber(url: string): number {
+		const searchParams = new URLSearchParams(url.split("?")[1]);
+		const pageNumber = searchParams.get("page");
+		return pageNumber ? parseInt(pageNumber, 10) : 1;
 	}
 
-	return games?.results.map((game: Game) => (
-		<GameCards
-			key={game.id+'-'+game.slug}
-			released={game.released}
-			id={game.id}
-			name={game.name}
-			slug={game.slug}
-			image={game.background_image}
-			genres={game.genres}
-			parent_platforms={game.parent_platforms}
-		/>
-	));
+	const addNewGames = () => {
+		if (games.next) {
+			console.log(getPageNumber(games.next), "PageNext");
+			dispatch(
+				fetchGame({ page: getPageNumber(games.next), page_size: 10 })
+			);
+		}
+	};
+
+	return (
+		<React.Fragment>
+			{games?.results?.map((game: Game) => (
+				<GameCards
+					key={game.id + "-" + game.slug}
+					released={game.released}
+					id={game.id}
+					name={game.name}
+					slug={game.slug}
+					image={game.background_image}
+					genres={game.genres}
+					parent_platforms={game.parent_platforms}
+				/>
+			))}
+			{gamesStatus === StatusResponse.FULLFILLED && (
+				<Button
+					className={`col-span-full w-full`}
+					color={"default"}
+					onClick={addNewGames}
+				>
+					Load More
+				</Button>
+			)}
+			{gamesStatus === StatusResponse.PENDING && (
+				<div className={`col-span-full`}>
+					<LoadingBoundry />
+				</div>
+			)}
+		</React.Fragment>
+	);
 };
 
 export default CategoryLayout;

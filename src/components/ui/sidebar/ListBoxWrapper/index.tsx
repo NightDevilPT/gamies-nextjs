@@ -39,7 +39,7 @@ const ListBoxWrapper = ({
 						"image_background" in items ? (
 							<Image src={items.image_background} alt="Listbox image" className={`w-7 h-7 min-w-7 rounded-full overflow-hidden`} />
 						) : (
-							<div className={`w-4 h-4`}>{platformIcons[items.slug]}</div>
+							<div className={`w-5 h-5`}>{platformIcons[items.slug]}</div>
 						)
 					}
 				>
