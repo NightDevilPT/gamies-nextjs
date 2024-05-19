@@ -8,7 +8,6 @@ export const fetchGameGenres = createAsyncThunk(
     try {
       const response = await getGenres();
       return response;
-      // return genresDummyData;
     } catch (error) {
       throw error; // Throw any errors for handling in the rejected case
     }

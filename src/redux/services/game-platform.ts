@@ -9,7 +9,6 @@ export const fetchGamePlatform = createAsyncThunk(
     try {
       const response = await getPlatforms();
       return response;
-      // return dummyPlatform;
     } catch (error) {
       throw error; // Throw any errors for handling in the rejected case
     }

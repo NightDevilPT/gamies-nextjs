@@ -1,12 +1,17 @@
 "use client";
+
 import { useAppSelector } from "@/redux/hook";
 import { RootState } from "@/redux/store";
 
 import Image from "next/image";
-import { usePathname, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
-const BannerFrame = () => {
+export interface BannerIprops {
+	imageUrl?: string;
+}
+
+const BannerFrame = ({ imageUrl }: BannerIprops) => {
 	const params = usePathname();
 	const [image, setImage] = useState<string>("");
 	const { genres } = useAppSelector((state: RootState) => state.genres);
@@ -14,7 +19,9 @@ const BannerFrame = () => {
 	const { platform } = useAppSelector((state: RootState) => state.platforms);
 
 	useEffect(() => {
-		if (params === "/category/platform") {
+		if (imageUrl) {
+			setImage(imageUrl);
+		} else if (params === "/category/platform") {
 			const randomResultsIndex = Math.floor(
 				Math.random() * (platform?.results?.length ?? 0)
 			);
