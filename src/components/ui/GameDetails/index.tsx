@@ -9,7 +9,8 @@ import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { fetchGameDetails } from "@/redux/services/game-details";
 import CustomBreadCrumb from "@/components/common/Breadcrumb";
 import { fetchGameScreenshots } from "@/redux/services/game-screenshots";
-
+import GameDetailsTab from "../GameDetailsTabs";
+// import { fetchGameVideos } from "@/redux/services/game-videos";
 
 const GameDetails = ({ id }: { id: number }) => {
 	const [showMore, setShowMore] = useState<boolean>(false);
@@ -25,6 +26,7 @@ const GameDetails = ({ id }: { id: number }) => {
 	const fetchAllGameDetails = async () => {
 		dispatch(fetchGameDetails({ id }));
 		dispatch(fetchGameScreenshots({ id }));
+		// dispatch(fetchGameVideos({ id }));
 	};
 
 	useEffect(() => {
@@ -61,9 +63,11 @@ const GameDetails = ({ id }: { id: number }) => {
 						);
 					})}
 				</div>
-					
+
 				{/* Game Name Title */}
-				<h1 className={`text-4xl font-[700]`}>
+				<h1
+					className={`text-4xl max-md:text-3xl line-clamp-2 font-[700]`}
+				>
 					{gameDetails[id]?.name}
 				</h1>
 
@@ -73,7 +77,10 @@ const GameDetails = ({ id }: { id: number }) => {
 				>
 					{gameDetails[id]?.ratings?.map((items: Rating) => {
 						return (
-							<div className={`grid grid-cols-1 min-w-24`} key={items.id+'-'+items.title}>
+							<div
+								className={`grid grid-cols-1 min-w-24`}
+								key={items.id + "-" + items.title}
+							>
 								<p
 									className={`text-foreground-400 text-sm font-[500] capitalize`}
 								>
@@ -88,7 +95,7 @@ const GameDetails = ({ id }: { id: number }) => {
 						);
 					})}
 				</div>
-				
+
 				{/* Game About Component */}
 				<div className={`w-full h-auto`}>
 					<p
@@ -113,11 +120,7 @@ const GameDetails = ({ id }: { id: number }) => {
 					</button>
 				</div>
 			</div>
-			<div className={`w-full grid grid-cols-3 gap-5`}>
-				<div className={`col-span-2 grid grid-cols-2 gap-5`}>
-					<div className={`w-full h-auto`}></div>
-				</div>
-			</div>
+			<GameDetailsTab id={id} />
 		</div>
 	);
 };

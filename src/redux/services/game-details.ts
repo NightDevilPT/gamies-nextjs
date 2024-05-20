@@ -1,7 +1,5 @@
-import { gamesDummy } from "@/dummyData/games";
-import { genresDummyData } from "@/dummyData/genres";
-import { getGameDetails, getGames } from "@/services/Request";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getGameDetails } from "@/services/Request";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchGameDetails = createAsyncThunk(
 	"genres/fetchGameDetails",
