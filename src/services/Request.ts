@@ -27,23 +27,60 @@ export const getPlatforms = async () => {
 	return response.data;
 };
 
-export const getGames = async (page: number, page_size: number=10) => {
+export const getGames = async (page: number, page_size: number = 10) => {
 	const response = await axiosInstance.get(
 		`/games?key=` + env.API + `&page=${page}&page_size=${page_size}`
 	);
 	return response.data;
 };
 
-export const getGameDetails=async(id:number)=>{
-	const response = await axiosInstance.get(
-		`/games/${id}?key=` + env.API
-	);
+export const getGameDetails = async (id: number) => {
+	const response = await axiosInstance.get(`/games/${id}?key=` + env.API);
 	return response.data;
-}
+};
 
-export const getGameScreenshots=async(id:number)=>{
+export const getGameScreenshots = async (id: number) => {
 	const response = await axiosInstance.get(
 		`/games/${id}/screenshots?key=` + env.API
 	);
 	return response.data;
-}
+};
+
+export const getGameVideos = async (
+	id: number,
+	pageNo: number,
+	limit: number
+) => {
+	const response = await axiosInstance.get(
+		`/games/${id}/movies?key=` +
+			env.API +
+			`&page=${pageNo}&page_size=${limit}`
+	);
+	return response.data;
+};
+
+export const getSimilarGames = async (
+	id: number,
+	pageNo: number,
+	limit: number
+) => {
+	const response = await axiosInstance.get(
+		`/games/${id}/game-series?key=` +
+			env.API +
+			`&page=${pageNo}&page_size=${limit}`
+	);
+	return response.data;
+};
+
+export const getGamePosts = async (
+	id: number,
+	pageNo: number,
+	limit: number
+) => {
+	const response = await axiosInstance.get(
+		`/games/${id}/reddit?key=` +
+			env.API +
+			`&page=${pageNo}&page_size=${limit}`
+	);
+	return response.data;
+};

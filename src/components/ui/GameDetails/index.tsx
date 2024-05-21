@@ -10,7 +10,9 @@ import { fetchGameDetails } from "@/redux/services/game-details";
 import CustomBreadCrumb from "@/components/common/Breadcrumb";
 import { fetchGameScreenshots } from "@/redux/services/game-screenshots";
 import GameDetailsTab from "../GameDetailsTabs";
-// import { fetchGameVideos } from "@/redux/services/game-videos";
+import { fetchGameVideos } from "@/redux/services/game-videos";
+import { fetchSimilarGame } from "@/redux/services/similar-games";
+import { fetchGamePosts } from "@/redux/services/game-posts";
 
 const GameDetails = ({ id }: { id: number }) => {
 	const [showMore, setShowMore] = useState<boolean>(false);
@@ -26,7 +28,9 @@ const GameDetails = ({ id }: { id: number }) => {
 	const fetchAllGameDetails = async () => {
 		dispatch(fetchGameDetails({ id }));
 		dispatch(fetchGameScreenshots({ id }));
-		// dispatch(fetchGameVideos({ id }));
+		dispatch(fetchGameVideos({ id }));
+		dispatch(fetchSimilarGame({ id }));
+		dispatch(fetchGamePosts({ id }));
 	};
 
 	useEffect(() => {

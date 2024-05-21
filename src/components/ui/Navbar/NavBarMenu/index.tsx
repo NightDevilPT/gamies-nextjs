@@ -1,8 +1,9 @@
 import React from "react";
-import { Divider, Link } from "@nextui-org/react";
+import { Divider } from "@nextui-org/react";
 import { NavbarMenu, NavbarMenuItem } from "@nextui-org/navbar";
 
 import SocialNavBar from "../SocialNavbar";
+import Link from "next/link";
 
 const menuItems = ["Genres", "Platforms", "Games", "Browse"];
 
@@ -13,8 +14,7 @@ const NavBarMenu = () => {
 				<NavbarMenuItem key={`${item}-${index}`}>
 					<Link
 						className="w-full text-foreground-900 hover:text-success-500 text-sm font-[500]"
-						href="#"
-						size="lg"
+						href={`/category/${item.toLowerCase()}`}
 					>
 						{item}
 					</Link>

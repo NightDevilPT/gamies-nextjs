@@ -5,6 +5,9 @@ import { MdVideoLibrary } from "react-icons/md";
 import { VscPreview } from "react-icons/vsc";
 import { IoGameController } from "react-icons/io5";
 import GameScreenshots from "./GameScreenshots";
+import GameVideos from "./GameVideos";
+import SimilarGames from "./SimilarGames";
+import GamePosts from "./GamePosts";
 
 export default function GameDetailsTab({ id }: { id: number }) {
 	return (
@@ -18,7 +21,9 @@ export default function GameDetailsTab({ id }: { id: number }) {
 							<span>Games</span>
 						</div>
 					}
-				/>
+				>
+					<SimilarGames id={id} />
+				</Tab>
 				<Tab
 					key="photos"
 					title={
@@ -38,7 +43,9 @@ export default function GameDetailsTab({ id }: { id: number }) {
 							<span>Videos</span>
 						</div>
 					}
-				/>
+				>
+					<GameVideos id={id} />
+				</Tab>
 				<Tab
 					key="posts"
 					title={
@@ -47,7 +54,9 @@ export default function GameDetailsTab({ id }: { id: number }) {
 							<span>Posts</span>
 						</div>
 					}
-				/>
+				>
+					<GamePosts id={id} />
+				</Tab>
 			</Tabs>
 		</div>
 	);

@@ -126,7 +126,7 @@ const GamesCards = () => {
 					parent_platforms={game.parent_platforms}
 				/>
 			))}
-			{gamesStatus === StatusResponse.FULLFILLED && (
+			{games?.next && (
 				<Button
 					className={`col-span-full w-full`}
 					color={"default"}
