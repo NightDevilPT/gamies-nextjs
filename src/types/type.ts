@@ -33,6 +33,7 @@ export enum StatusResponse {
 
 type Params = {
 	slugs: string;
+	type:string;
 };
 
 export interface ParamsObject{

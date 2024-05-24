@@ -26,7 +26,6 @@ const GameCards = ({
 	genres,
 	released,
 }: GameCardIprops) => {
-	console.log(image, parent_platforms, "###");
 	return (
 		<Link href={`/game-details/${id}`}>
 			<Card

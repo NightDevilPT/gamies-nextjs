@@ -5,8 +5,14 @@ export interface categoryCardProps {
 	games_count: number;
 	image_background: string;
 	image?: string;
+	title:string
 }
 
 export interface categoryLayoutProps {
 	title:string;
+}
+
+export interface gameTypeLayoutProps {
+	slug:string;
+	type:string;
 }

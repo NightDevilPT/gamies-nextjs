@@ -3,6 +3,15 @@
 import { env } from "@/config/env";
 import axios from "axios";
 
+export interface OptionalParams {
+	search?: string;
+	parent_platforms?: number[];
+	platforms?: number[];
+	genres?: number[];
+	ordering?: string;
+	dates?: string;
+}
+
 const axiosInstance = axios.create({
 	baseURL: env.URL,
 	timeout: 5000,
@@ -27,9 +36,34 @@ export const getPlatforms = async () => {
 	return response.data;
 };
 
-export const getGames = async (page: number, page_size: number = 10) => {
+export const getGames = async (
+	page: number,
+	page_size: number = 10,
+	optionalParams?: OptionalParams
+) => {
+	const key = env.API || "";
+
+	// Create URLSearchParams object
+	const queryParams = new URLSearchParams({
+		page: page.toString(),
+		page_size: page_size.toString(),
+		key: key,
+	});
+
+	// Append optionalParams to queryParams
+	if (optionalParams) {
+		Object.entries(optionalParams).forEach(([paramKey, paramValue]) => {
+			if (Array.isArray(paramValue)) {
+				queryParams.append(paramKey, paramValue.join(","));
+			} else {
+				queryParams.append(paramKey, paramValue as string);
+			}
+		});
+	}
+
+	// Make the API call
 	const response = await axiosInstance.get(
-		`/games?key=` + env.API + `&page=${page}&page_size=${page_size}`
+		`/games?${queryParams.toString()}`
 	);
 	return response.data;
 };

@@ -19,17 +19,17 @@ const CategoryLayout = ({ title }: categoryLayoutProps) => {
 	return (
 		<div className={`w-full h-auto space-y-3 my-5`}>
 			<h1
-				className={`w-full h-auto text-3xl font-[600] text-forground-800 capitalize`}
+				className={`w-full h-auto text-3xl font-[600] text-forground-800 capitalize max-sm:px-5`}
 			>
 				{title}
 			</h1>
 			<div
-				className={`w-full h-auto relative grid grid-cols-3 max-xl:grid-cols-2 max-lg:grid-cols-2 max-[450px]:grid-cols-1 gap-5`}
+				className={`w-full h-auto relative grid grid-cols-3 max-xl:grid-cols-2 max-lg:grid-cols-2 max-[450px]:grid-cols-1 gap-5 max-sm:px-5`}
 			>
 				{title.toLowerCase() === "platform" ? (
-					<PlatformCards />
+					<PlatformCards title={title} />
 				) : title.toLowerCase() === "genres" ? (
-					<GenresCards />
+					<GenresCards title={title} />
 				) : (
 					<GamesCards />
 				)}
@@ -38,7 +38,7 @@ const CategoryLayout = ({ title }: categoryLayoutProps) => {
 	);
 };
 
-const PlatformCards = () => {
+const PlatformCards = ({title}:{title:string}) => {
 	const { platform, platformError, platformStatus } = useAppSelector(
 		(state: RootState) => state.platforms
 	);
@@ -59,6 +59,7 @@ const PlatformCards = () => {
 						slug={slug}
 						games_count={games_count}
 						image_background={image_background}
+						title={title}
 					/>
 				);
 			}
@@ -66,7 +67,7 @@ const PlatformCards = () => {
 	});
 };
 
-const GenresCards = () => {
+const GenresCards = ({title}:{title:string}) => {
 	const { genres, genresError, genresStatus } = useAppSelector(
 		(state: RootState) => state.genres
 	);
@@ -85,6 +86,7 @@ const GenresCards = () => {
 					slug={slug}
 					games_count={games_count}
 					image_background={image_background}
+					title={title}
 				/>
 			);
 		}
