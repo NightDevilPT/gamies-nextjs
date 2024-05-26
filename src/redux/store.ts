@@ -1,23 +1,26 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { gameGenresSlice } from "./slices/game-genres-slice";
-import { gamePlatformSlice } from "./slices/game-platforms-slice";
+
 import { gamesSlice } from "./slices/games-slice";
-import { gameDetailsSlice } from "./slices/game-details-slice";
-import { gameScreenshotsSlice } from "./slices/game-screenshots-slice";
-import { gameVideosSlice } from "./slices/game-videos-slice";
-import { similarGamesSlice } from "./slices/similar-games-slice";
 import { gamePostsSlice } from "./slices/game-posts-slice";
+import { gameVideosSlice } from "./slices/game-videos-slice";
+import { gameGenresSlice } from "./slices/game-genres-slice";
+import { gameDetailsSlice } from "./slices/game-details-slice";
+import { similarGamesSlice } from "./slices/similar-games-slice";
+import { platformGameSlice } from "./slices/platform-games-slice";
+import { gamePlatformSlice } from "./slices/game-platforms-slice";
+import { gameScreenshotsSlice } from "./slices/game-screenshots-slice";
 
 export const store = configureStore({
 	reducer: {
-		genres: gameGenresSlice.reducer,
-		platforms: gamePlatformSlice.reducer,
 		games: gamesSlice.reducer,
-		gameDetails: gameDetailsSlice.reducer,
-		gameScreenshots: gameScreenshotsSlice.reducer,
-		gameVideos: gameVideosSlice.reducer,
-		similarGames: similarGamesSlice.reducer,
+		genres: gameGenresSlice.reducer,
 		gamePosts: gamePostsSlice.reducer,
+		gameVideos: gameVideosSlice.reducer,
+		platforms: gamePlatformSlice.reducer,
+		gameDetails: gameDetailsSlice.reducer,
+		similarGames: similarGamesSlice.reducer,
+		platformGames: platformGameSlice.reducer,
+		gameScreenshots: gameScreenshotsSlice.reducer,
 	},
 });
 

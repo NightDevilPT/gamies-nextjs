@@ -1,45 +1,41 @@
-export interface Platform {
+import { Genre, ParentPlatform, Platform } from "./games";
+
+export interface Store {
 	id: number;
 	name: string;
 	slug: string;
-  }
-  
-  export interface Store {
-	id: number;
-	name: string;
-	slug: string;
-  }
-  
-  export interface Rating {
+}
+
+export interface Rating {
 	id: number;
 	title: string;
 	count: number;
 	percent: number;
-  }
-  
-  export interface Tag {
+}
+
+export interface Tag {
 	id: number;
 	name: string;
 	slug: string;
 	language: string;
 	games_count: number;
 	image_background: string;
-  }
-  
-  export interface ESRBRating {
+}
+
+export interface ESRBRating {
 	id: number;
 	name: string;
 	slug: string;
 	name_en: string;
 	name_ru: string;
-  }
-  
-  export interface ShortScreenshot {
+}
+
+export interface ShortScreenshot {
 	id: number;
 	image: string;
-  }
-  
-  export interface PlatformGame {
+}
+
+export interface PlatformGame {
 	slug: string;
 	name: string;
 	playtime: number;
@@ -55,12 +51,12 @@ export interface Platform {
 	reviews_text_count: number;
 	added: number;
 	added_by_status: {
-	  yet: number;
-	  owned: number;
-	  beaten: number;
-	  toplay: number;
-	  dropped: number;
-	  playing: number;
+		yet: number;
+		owned: number;
+		beaten: number;
+		toplay: number;
+		dropped: number;
+		playing: number;
 	};
 	metacritic: number | null;
 	suggestions_count: number;
@@ -75,15 +71,14 @@ export interface Platform {
 	saturated_color: string;
 	dominant_color: string;
 	short_screenshots: ShortScreenshot[];
-	parent_platforms: { platform: Platform }[];
-	genres: { id: number; name: string; slug: string }[];
-  }
-  
-  export interface PlatformGamesResponse {
+	parent_platforms: ParentPlatform[];
+	genres: Genre[];
+}
+
+export interface PlatformGamesResponse {
 	count: number;
 	next: string | null;
 	previous: string | null;
 	results: PlatformGame[];
 	user_platforms: boolean;
-  }
-  
+}

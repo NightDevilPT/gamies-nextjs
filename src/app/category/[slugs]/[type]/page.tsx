@@ -1,8 +1,8 @@
-import CustomBreadCrumb from "@/components/common/Breadcrumb";
-import BannerFrame from "@/components/ui/BannerFrame";
-import { GameTypeLayout } from "@/components/ui/GameTypeLayout";
-import { ParamsObject } from "@/types/type";
 import React from "react";
+import { ParamsObject } from "@/types/type";
+import BannerFrame from "@/components/ui/BannerFrame";
+import CustomBreadCrumb from "@/components/common/Breadcrumb";
+import { PlatformGameTypeLayout } from "@/components/ui/GameTypeLayout/PlatformGameLayout";
 
 const page = ({ params }: ParamsObject) => {
 	return (
@@ -11,12 +11,20 @@ const page = ({ params }: ParamsObject) => {
 				data={[
 					{ href: "/", name: "Home" },
 					{ href: `/category/${params.slugs}`, name: params?.slugs },
-					{ href: `/category/${params.slugs}/${params.type}`, name: params?.type },
+					{
+						href: `/category/${params.slugs}/${params.type}`,
+						name: params?.type,
+					},
 				]}
 			/>
 			<div className="mt-3">
 				<BannerFrame />
-				<GameTypeLayout slug={params.type} type={params.type} />
+				{params.slugs === "platform" && (
+					<PlatformGameTypeLayout
+						slug={params.type}
+						type={params.type}
+					/>
+				)}
 			</div>
 		</div>
 	);
