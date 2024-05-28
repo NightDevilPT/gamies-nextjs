@@ -5,9 +5,9 @@ import axios from "axios";
 
 export interface OptionalParams {
 	search?: string;
-	parent_platforms?: number[];
-	platforms?: number[];
-	genres?: number[];
+	parent_platforms?: number[] | number;
+	platforms?: number[] | number;
+	genres?: number[] | number;
 	ordering?: string;
 	dates?: string;
 }

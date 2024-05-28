@@ -3,6 +3,7 @@ import { ParamsObject } from "@/types/type";
 import BannerFrame from "@/components/ui/BannerFrame";
 import CustomBreadCrumb from "@/components/common/Breadcrumb";
 import { PlatformGameTypeLayout } from "@/components/ui/GameTypeLayout/PlatformGameLayout";
+import { GenresGameTypeLayout } from "@/components/ui/GameTypeLayout/GenresGameLayout";
 
 const page = ({ params }: ParamsObject) => {
 	return (
@@ -19,8 +20,13 @@ const page = ({ params }: ParamsObject) => {
 			/>
 			<div className="mt-3">
 				<BannerFrame />
-				{params.slugs === "platform" && (
+				{params.slugs === "platform" ? (
 					<PlatformGameTypeLayout
+						slug={params.type}
+						type={params.type}
+					/>
+				) : (
+					<GenresGameTypeLayout
 						slug={params.type}
 						type={params.type}
 					/>
